@@ -1,0 +1,8 @@
+namespace NServiceBus.DataBus
+{
+    public class DataBus
+    {
+        public DataBus() { }
+        public void TestApi() { }
+    }
+}
