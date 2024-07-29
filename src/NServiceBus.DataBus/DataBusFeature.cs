@@ -10,11 +10,11 @@ using NServiceBus.DataBus;
 using Settings;
 
 /// <summary>
-/// Used to configure the databus.
+/// Used to configure the DataBus.
 /// </summary>
-public class DataBus : Feature
+public class DataBusFeature : Feature
 {
-    internal DataBus()
+    internal DataBusFeature()
     {
         Defaults(s => s.EnableFeatureByDefault(GetSelectedFeatureForDataBus(s)));
     }
@@ -28,7 +28,7 @@ public class DataBus : Feature
     /// <summary>
     /// Called when the features is activated.
     /// </summary>
-    protected internal override void Setup(FeatureConfigurationContext context)
+    protected override void Setup(FeatureConfigurationContext context)
     {
         if (context.Services.Any(sd => sd.ServiceType == typeof(IDataBusSerializer)))
         {

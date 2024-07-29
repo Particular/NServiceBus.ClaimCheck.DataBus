@@ -62,15 +62,15 @@ public static partial class UseDataBusExtensions
 
     static void EnableDataBus(EndpointConfiguration config, DataBusDefinition selectedDataBus, IDataBusSerializer dataBusSerializer)
     {
-        config.GetSettings().Set(Features.DataBus.SelectedDataBusKey, selectedDataBus);
-        config.GetSettings().Set(Features.DataBus.DataBusSerializerKey, dataBusSerializer);
-        config.GetSettings().Set(Features.DataBus.AdditionalDataBusDeserializersKey, new List<IDataBusSerializer>());
+        config.GetSettings().Set(Features.DataBusFeature.SelectedDataBusKey, selectedDataBus);
+        config.GetSettings().Set(Features.DataBusFeature.DataBusSerializerKey, dataBusSerializer);
+        config.GetSettings().Set(Features.DataBusFeature.AdditionalDataBusDeserializersKey, new List<IDataBusSerializer>());
 
-        if (!config.GetSettings().HasSetting(Features.DataBus.DataBusConventionsKey))
+        if (!config.GetSettings().HasSetting(Features.DataBusFeature.DataBusConventionsKey))
         {
-            config.GetSettings().Set(Features.DataBus.DataBusConventionsKey, new DataBusConventions());
+            config.GetSettings().Set(Features.DataBusFeature.DataBusConventionsKey, new DataBusConventions());
         }
 
-        config.EnableFeature<Features.DataBus>();
+        config.EnableFeature<Features.DataBusFeature>();
     }
 }

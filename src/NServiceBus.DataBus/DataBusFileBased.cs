@@ -8,13 +8,13 @@ class DataBusFileBased : Feature
 {
     public DataBusFileBased()
     {
-        DependsOn<DataBus>();
+        DependsOn<DataBusFeature>();
     }
 
     /// <summary>
     /// See <see cref="Feature.Setup" />
     /// </summary>
-    protected internal override void Setup(FeatureConfigurationContext context)
+    protected override void Setup(FeatureConfigurationContext context)
     {
         if (!context.Settings.TryGet("FileShareDataBusPath", out string basePath))
         {
