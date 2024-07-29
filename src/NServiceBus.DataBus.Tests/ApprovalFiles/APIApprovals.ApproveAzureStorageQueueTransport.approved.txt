@@ -1,8 +1,100 @@
+namespace NServiceBus
+{
+    public static class ConfigureFileShareDataBus
+    {
+        public static NServiceBus.DataBus.DataBusExtensions<NServiceBus.FileShareDataBus> BasePath(this NServiceBus.DataBus.DataBusExtensions<NServiceBus.FileShareDataBus> config, string basePath) { }
+    }
+    public class DataBusProperty<T> : NServiceBus.IDataBusProperty
+        where T :  class
+    {
+        public DataBusProperty() { }
+        public DataBusProperty(T value) { }
+        public bool HasValue { get; set; }
+        public string Key { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public System.Type Type { get; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        [System.Xml.Serialization.XmlIgnore]
+        public T Value { get; }
+        public object GetValue() { }
+        public void SetValue(object valueToSet) { }
+    }
+    public class FileShareDataBus : NServiceBus.DataBus.DataBusDefinition
+    {
+        public FileShareDataBus() { }
+        protected override System.Type ProvidedByFeature() { }
+    }
+    public interface IDataBusProperty
+    {
+        bool HasValue { get; set; }
+        string Key { get; set; }
+        System.Type Type { get; }
+        object GetValue();
+        void SetValue(object value);
+    }
+    public class SystemJsonDataBusSerializer : NServiceBus.DataBus.IDataBusSerializer
+    {
+        public SystemJsonDataBusSerializer() { }
+        public string ContentType { get; }
+        public object Deserialize(System.Type propertyType, System.IO.Stream stream) { }
+        public void Serialize(object dataBusProperty, System.IO.Stream stream) { }
+    }
+    public static class UseDataBusExtensions
+    {
+        public static NServiceBus.DataBus.DataBusExtensions UseDataBus(this NServiceBus.EndpointConfiguration config, System.Func<System.IServiceProvider, NServiceBus.DataBus.IDataBus> dataBusFactory, NServiceBus.DataBus.IDataBusSerializer dataBusSerializer) { }
+        public static NServiceBus.DataBus.DataBusExtensions<TDataBusDefinition> UseDataBus<TDataBusDefinition>(this NServiceBus.EndpointConfiguration config, NServiceBus.DataBus.IDataBusSerializer dataBusSerializer)
+            where TDataBusDefinition : NServiceBus.DataBus.DataBusDefinition, new () { }
+        public static NServiceBus.DataBus.DataBusExtensions<TDataBusDefinition> UseDataBus<TDataBusDefinition, TDataBusSerializer>(this NServiceBus.EndpointConfiguration config)
+            where TDataBusDefinition : NServiceBus.DataBus.DataBusDefinition, new ()
+            where TDataBusSerializer : NServiceBus.DataBus.IDataBusSerializer, new () { }
+    }
+}
 namespace NServiceBus.DataBus
 {
-    public class DataBus
+    public static class ConventionsBuilderExtensions
     {
-        public DataBus() { }
-        public void TestApi() { }
+        public static NServiceBus.ConventionsBuilder DefiningDataBusPropertiesAs(this NServiceBus.ConventionsBuilder builder, System.Func<System.Reflection.PropertyInfo, bool> definesDataBusProperty) { }
+    }
+    public class DataBusConventions
+    {
+        public DataBusConventions() { }
+        public bool IsDataBusProperty(System.Reflection.PropertyInfo property) { }
+    }
+    public abstract class DataBusDefinition
+    {
+        protected DataBusDefinition() { }
+        protected abstract System.Type ProvidedByFeature();
+    }
+    public class DataBusExtensions : NServiceBus.Configuration.AdvancedExtensibility.ExposeSettings
+    {
+        public DataBusExtensions(NServiceBus.Settings.SettingsHolder settings) { }
+        public NServiceBus.DataBus.DataBusExtensions AddDeserializer<TSerializer>()
+            where TSerializer : NServiceBus.DataBus.IDataBusSerializer, new () { }
+        public NServiceBus.DataBus.DataBusExtensions AddDeserializer<TSerializer>(TSerializer serializer)
+            where TSerializer : NServiceBus.DataBus.IDataBusSerializer { }
+    }
+    public class DataBusExtensions<T> : NServiceBus.DataBus.DataBusExtensions
+        where T : NServiceBus.DataBus.DataBusDefinition
+    {
+        public DataBusExtensions(NServiceBus.Settings.SettingsHolder settings) { }
+    }
+    public interface IDataBus
+    {
+        System.Threading.Tasks.Task<System.IO.Stream> Get(string key, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<string> Put(System.IO.Stream stream, System.TimeSpan timeToBeReceived, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task Start(System.Threading.CancellationToken cancellationToken = default);
+    }
+    public interface IDataBusSerializer
+    {
+        string ContentType { get; }
+        object Deserialize(System.Type propertyType, System.IO.Stream stream);
+        void Serialize(object databusProperty, System.IO.Stream stream);
+    }
+}
+namespace NServiceBus.Features
+{
+    public class DataBusFeature : NServiceBus.Features.Feature
+    {
+        protected override void Setup(NServiceBus.Features.FeatureConfigurationContext context) { }
     }
 }
