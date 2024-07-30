@@ -44,7 +44,7 @@ public class When_sending_unobtrusive_databus_properties_with_xml_message_serial
             {
                 builder.Conventions()
                     .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName)
-                    .DefiningDataBusPropertiesAs(t => t.Name.Contains("Payload"));
+                    .DefiningDataBusPropertyConventionAs(t => t.Name.Contains("Payload"));
 
                 var basePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "databus", "sender");
                 builder.UseDataBus<FileShareDataBus, SystemJsonDataBusSerializer>().BasePath(basePath);
@@ -62,7 +62,7 @@ public class When_sending_unobtrusive_databus_properties_with_xml_message_serial
             {
                 builder.Conventions()
                     .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName)
-                    .DefiningDataBusPropertiesAs(t => t.Name.Contains("Payload"));
+                    .DefiningDataBusPropertyConventionAs(t => t.Name.Contains("Payload"));
 
                 var basePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "databus", "sender");
                 builder.UseDataBus<FileShareDataBus, SystemJsonDataBusSerializer>().BasePath(basePath);
