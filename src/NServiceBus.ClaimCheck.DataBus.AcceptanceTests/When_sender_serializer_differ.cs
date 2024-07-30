@@ -26,7 +26,7 @@ public class When_sender_serializer_differ
             .Done(c => c.ReceivedPayload != null)
             .Run();
 
-        Assert.AreEqual(payloadToSend, context.ReceivedPayload, "The large payload should be marshalled correctly using the databus");
+        Assert.That(context.ReceivedPayload, Is.EqualTo(payloadToSend), "The large payload should be marshalled correctly using the databus");
     }
 
     const int PayloadSize = 500;
