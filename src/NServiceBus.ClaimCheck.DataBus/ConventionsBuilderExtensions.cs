@@ -12,7 +12,7 @@ public static class ConventionsBuilderExtensions
     /// <summary>
     /// Sets the function to be used to evaluate whether a property should be sent via the DataBus or not.
     /// </summary>
-    public static ConventionsBuilder DefiningDataBusPropertyConventionAs(this ConventionsBuilder builder, Func<PropertyInfo, bool> definesDataBusProperty)
+    public static ConventionsBuilder DefiningDataBusPropertyAs(this ConventionsBuilder builder, Func<PropertyInfo, bool> definesDataBusProperty)
     {
         ArgumentNullException.ThrowIfNull(definesDataBusProperty);
 
