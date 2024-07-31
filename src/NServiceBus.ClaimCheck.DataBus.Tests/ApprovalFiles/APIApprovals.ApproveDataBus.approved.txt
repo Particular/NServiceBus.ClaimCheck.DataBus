@@ -7,7 +7,7 @@ namespace NServiceBus.ClaimCheck.DataBus
     }
     public static class ConventionsBuilderExtensions
     {
-        public static NServiceBus.ConventionsBuilder DefiningDataBusPropertyConventionAs(this NServiceBus.ConventionsBuilder builder, System.Func<System.Reflection.PropertyInfo, bool> definesDataBusProperty) { }
+        public static NServiceBus.ConventionsBuilder DefiningDataBusPropertyAs(this NServiceBus.ConventionsBuilder builder, System.Func<System.Reflection.PropertyInfo, bool> definesDataBusProperty) { }
     }
     public class DataBusConventions
     {
