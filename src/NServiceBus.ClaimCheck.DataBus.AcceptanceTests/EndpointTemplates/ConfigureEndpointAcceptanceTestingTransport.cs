@@ -7,15 +7,8 @@ using NServiceBus;
 using NServiceBus.AcceptanceTesting.Support;
 using NUnit.Framework;
 
-public class ConfigureEndpointAcceptanceTestingTransport : IConfigureEndpointTestExecution
+public class ConfigureEndpointAcceptanceTestingTransport(bool useNativePubSub, bool useNativeDelayedDelivery, TransportTransactionMode? transactionMode = null)
 {
-    public ConfigureEndpointAcceptanceTestingTransport(bool useNativePubSub, bool useNativeDelayedDelivery, TransportTransactionMode? transactionMode = null)
-    {
-        this.useNativePubSub = useNativePubSub;
-        this.useNativeDelayedDelivery = useNativeDelayedDelivery;
-        this.transactionMode = transactionMode;
-    }
-
     public Task Cleanup()
     {
         try
@@ -76,10 +69,6 @@ public class ConfigureEndpointAcceptanceTestingTransport : IConfigureEndpointTes
 
         return Task.CompletedTask;
     }
-
-    readonly bool useNativePubSub;
-    readonly bool useNativeDelayedDelivery;
-    readonly TransportTransactionMode? transactionMode;
 
     string storageDir;
 }
