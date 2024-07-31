@@ -43,9 +43,8 @@ public class When_sending_unobtrusive_databus_properties_with_systemjson_message
         {
             EndpointSetup<DefaultServer>(builder =>
             {
-                builder.Conventions()
-                    .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName)
-                    .DefiningDataBusPropertyAs(t => t.Name.Contains("Payload"));
+                ConventionsBuilderExtensions.DefiningDataBusPropertiesAs(builder.Conventions()
+                        .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName), t => t.Name.Contains("Payload"));
 
                 var basePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "databus", "sender");
                 builder.UseDataBus<FileShareDataBus, SystemJsonDataBusSerializer>().BasePath(basePath);
@@ -61,9 +60,8 @@ public class When_sending_unobtrusive_databus_properties_with_systemjson_message
         {
             EndpointSetup<DefaultServer>(builder =>
             {
-                builder.Conventions()
-                    .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName)
-                    .DefiningDataBusPropertyAs(t => t.Name.Contains("Payload"));
+                ConventionsBuilderExtensions.DefiningDataBusPropertiesAs(builder.Conventions()
+                        .DefiningCommandsAs(t => t.Namespace != null && t.FullName == typeof(MyMessageWithLargePayload).FullName), t => t.Name.Contains("Payload"));
 
                 var basePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "databus", "sender");
                 builder.UseDataBus<FileShareDataBus, SystemJsonDataBusSerializer>().BasePath(basePath);
