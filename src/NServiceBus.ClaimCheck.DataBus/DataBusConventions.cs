@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
+using Utils.Reflection;
 
 /// <summary>
 /// This class contains helper methods to extract and cache databus properties from messages.
@@ -51,5 +52,5 @@ public class DataBusConventions
 
     internal Func<PropertyInfo, bool> IsDataBusPropertyAction = p => typeof(IDataBusProperty).IsAssignableFrom(p.PropertyType) && typeof(IDataBusProperty) != p.PropertyType;
 
-    readonly ConcurrentDictionary<Type, List<DataBusPropertyInfo>> cache = new ConcurrentDictionary<Type, List<DataBusPropertyInfo>>();
+    readonly ConcurrentDictionary<Type, List<DataBusPropertyInfo>> cache = new();
 }
