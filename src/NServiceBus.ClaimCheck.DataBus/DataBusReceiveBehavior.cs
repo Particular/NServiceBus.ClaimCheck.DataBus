@@ -46,7 +46,7 @@ class DataBusReceiveBehavior : IBehavior<IIncomingLogicalMessageContext, IIncomi
             {
                 using (var stream = await dataBus.Get(dataBusKey, context.CancellationToken).ConfigureAwait(false))
                 {
-                    context.Headers.TryGetValue(Headers.DataBusConfigContentType, out var serializerUsed);
+                    context.Headers.TryGetValue(DataBusHeaders.DataBusConfigContentType, out var serializerUsed);
 
                     if (dataBusProperty != null)
                     {

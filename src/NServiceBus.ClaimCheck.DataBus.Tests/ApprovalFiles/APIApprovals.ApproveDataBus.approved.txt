@@ -32,6 +32,10 @@ namespace NServiceBus.ClaimCheck.DataBus
     {
         public DataBusExtensions(NServiceBus.Settings.SettingsHolder settings) { }
     }
+    public static class DataBusHeaders
+    {
+        public const string DataBusConfigContentType = "NServiceBus.DataBusConfig.ContentType";
+    }
     public class DataBusProperty<T> : NServiceBus.ClaimCheck.DataBus.IDataBusProperty
         where T :  class
     {
